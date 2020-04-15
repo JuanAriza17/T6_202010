@@ -65,7 +65,10 @@ public class Controller {
 						view.printMessage("Árbol de comparendos creado\n");
 						view.printMessage("Número de comparendos guardados: "+modelo.darTamano());
 						view.printMessage("Altura del árbol: "+modelo.darAlturaArbol());
-						view.printMessage("Altura promedio de cada rama: "+modelo.darPromedioHojas()+"\n");
+						
+						DecimalFormat df= new DecimalFormat("0.00");
+						
+						view.printMessage("Altura promedio de cada rama: "+df.format(modelo.darPromedioHojas())+"\n");
 						view.printMessage("MENOR: \n"+modelo.darMayorComparendo().toString());
 						view.printMessage("MAYOR: \n"+modelo.darMenorComparendo().toString()+"\n");
 						

@@ -624,6 +624,9 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public Iterator<Node> darHojas() 
 	{
 		ListaEncadenada<Node> lista = new ListaEncadenada<Node>();
@@ -631,6 +634,11 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 		return lista.iterator();
 	}
 	
+	/**
+	 * Método que llena la lista que contiene las hojas.
+	 * @param x Nodo con las hojas
+	 * @param lista Lista encadenada con las hojas
+	 */
 	public void llenarHojas(Node x, ListaEncadenada<Node> lista)
 	{
 		if(x!=null)
