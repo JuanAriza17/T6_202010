@@ -16,11 +16,18 @@ public interface IRedBlackBST<K extends Comparable<K>, V extends Comparable<V>>
 	boolean isEmpty();
 	
 	/**
+	 * Retorna el valor V asociado a la llave key dada. Si la llave no se encuentra se retorna el valor null.
+	 * @param key Llave de la cual se obtendrá el valor.
+	 * @return Valor de la llave ingresada por parámetro.
+	 */
+	V get(K key);
+	
+	/**
 	 * Método que retorna  la altura del camino desde la raíz para llegar a la llave key (si existe).
 	 * @param Llave de cual será buscada el camino.
 	 * @return Altura del camino. En caso de que no exista la llave retorna -1.
 	 */
-	V get(K key);
+	int getHeight(K key);
 
 	/**
 	 * Método que indica si la llave ingresada por parámetro se encuentra en el árbol.
@@ -42,7 +49,7 @@ public interface IRedBlackBST<K extends Comparable<K>, V extends Comparable<V>>
 	 * Método que retorna la altura del árbol (longitud de la rama más alta).
 	 * @return Altura del árbol.
 	 */
-	int heigh();
+	int height();
 	
 	/**
 	 * Método que retorna la llave más pequeña del árbol.
@@ -55,6 +62,16 @@ public interface IRedBlackBST<K extends Comparable<K>, V extends Comparable<V>>
 	 * @return Llave más grande del árbol. Retorna null si el árbol está vacío.
 	 */
 	K max();
+	
+	/**
+	 * Valida si el árbol es Binario Ordenado y está balanceado Rojo-Negro a la izquierda. Hay que validar que: 
+	 * (a) la llave de cada nodo sea mayor que cualquiera de su sub-árbol izquierdo, 
+	 * (b) la llave de cada nodo sea menor que cualquiera de su sub-árbol derecho, 
+	 * (c) un nodo NO puede tener enlace rojo a su hijo derecho, 
+	 * (d) No puede haber dos enlaces rojos consecutivos a la izquierda. Es decir, un nodo NO puede tener un enlace rojo a su hijo izquierdo y su hijo izquierdo NO puede tener enlace rojo a su hijo izquierdo, 
+	 * (e) todas las ramas tienen el mismo número de enlaces negros.
+	 */
+	boolean check();
 	
 	/**
 	 * Método que retorna todas las llaves del árbol como un iterador.
