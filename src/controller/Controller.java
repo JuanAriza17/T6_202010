@@ -48,12 +48,7 @@ public class Controller {
 	public void run() 
 	{
 		Scanner lector = new Scanner(System.in);
-		String fecha = "";
-		String vehiculo = "";
-		String infraccion = "";
 		boolean fin = false;
-		int id = 0;
-		int valor = 0;
 
 
 		while( !fin ){
@@ -63,26 +58,16 @@ public class Controller {
 				int option = Integer.parseInt(lector.next());				
 				switch(option){
 				case 1:
-					view.printMessage("--------- \nCargando lista de comparendos");
+					view.printMessage("--------- \nCargando lista de comparendos\n");
 					try
 					{
 						modelo.cargarComparendos(RUTA);
-						view.printMessage("Lista de comparendos creada");
-						view.printMessage("Número de comparendos guardados: "+modelo.darLongitud());
-						view.printMessage("PRIMERO: \n"+modelo.darPrimerComparendo().toString());
-						view.printMessage("ÚLTIMO: \n"+modelo.darUltimoComparendo().toString()+"\n");
-						
-						double num1 = (double)modelo.numeroTuplasLinear()/modelo.tamanoLinear();
-						double num2= (double)modelo.numeroTuplasSeparate()/modelo.tamanoSeparate();
-						DecimalFormat formato = new DecimalFormat("0.00");
-						
-						view.printMessage("                                  Linear Probing          Separate Chaining");
-						view.printMessage("Número de tuplas                  "+modelo.numeroTuplasLinear()+"                   "+modelo.numeroTuplasSeparate());
-						view.printMessage("Tamaño inicial del arreglo        5                       5");
-						view.printMessage("Tamaño final del arreglo          "+modelo.tamanoLinear()+"                   "+modelo.tamanoSeparate());
-						view.printMessage("Factor de carga final (N/M)       "+formato.format(num1)+"                    "+formato.format(num2));
-						view.printMessage("Número de rehashes realizados     "+modelo.numeroRehashesLinear()+"                       "+modelo.numeroRehashesSeparate());
-						view.printMessage("\n");
+						view.printMessage("Árbol de comparendos creado\n");
+						view.printMessage("Número de comparendos guardados: "+modelo.darTamano());
+						view.printMessage("Altura del árbol: "+modelo.darAlturaArbol());
+						view.printMessage("Altura promedio de cada rama: "+modelo.darPromedioHojas()+"\n");
+						view.printMessage("MENOR: \n"+modelo.darMayorComparendo().toString());
+						view.printMessage("MAYOR: \n"+modelo.darMenorComparendo().toString()+"\n");
 						
 					}
 					catch(FileNotFoundException e)
@@ -157,16 +142,11 @@ public class Controller {
 					}
 					
 					break;
-
+ 
 				case 4: 
-					if(modelo.darLongitud()==0)
-					{
-						view.printMessage("Aún no ha inicializado las tablas de hash");
-					}
-					else
-					{
-						view.printMessage(modelo.pruebaDesempeño());
-					}
+					view.printMessage("--------- \n Hasta pronto !! \n---------"); 
+					lector.close();
+					fin = true;
 					break;
 
 				default: 

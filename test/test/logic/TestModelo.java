@@ -56,7 +56,7 @@ public class TestModelo {
 	 */
 	public void setUp2() throws FileNotFoundException, ParseException {
 		modelo = new Modelo();
-		modelo.cargarComparendos(RUTA);
+		modelo.cargarComparendosTest(RUTA);
 	}
 
 	/**

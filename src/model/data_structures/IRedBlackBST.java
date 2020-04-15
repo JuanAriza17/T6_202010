@@ -1,6 +1,8 @@
 package model.data_structures;
 import java.util.Iterator;
 
+import model.data_structures.RedBlackBST.Node;
+
 public interface IRedBlackBST<K extends Comparable<K>, V extends Comparable<V>>
 {
 	/**
@@ -96,5 +98,6 @@ public interface IRedBlackBST<K extends Comparable<K>, V extends Comparable<V>>
 	 * @return Retorna las llaves K en el rango establecido.
 	 */
 	Iterator<K>keysInRange(K init, K end);
-		
+	
+	Iterator<RedBlackBST<K, V>.Node> darHojas();
 }

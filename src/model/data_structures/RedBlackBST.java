@@ -1,6 +1,5 @@
 package model.data_structures;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 //ACLARACIÓN IMPORTANTE:
 //La implementación de esta estructura de datos fue tomada del libro Algorithms 4th.
@@ -34,6 +33,8 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 	{
 
 	}
+	
+
 
 	/**
 	 * Método que determina si un nodo es rojo o no.
@@ -89,7 +90,7 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 	 * Intercambia los colores de los nodos hijos del nodo ingresado por parámetro.
 	 * @param h Nodo al cuál sus hijos se les cambiará el color.
 	 */
-	private void flipColors(Node h)
+	public void flipColors(Node h)
 	{
 		h.color = RED;
 		h.left.color = BLACK;
@@ -130,6 +131,46 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 		return raiz==null;
 	}
 
+	/**
+	 * Retorna el nodo que contiene la llave
+	 * @param key llave
+	 * @return nodo
+	 */
+	public Node darNodo(K key)
+	{
+		if (key == null)
+		{
+			throw new IllegalArgumentException("La llave es nula");
+		}
+		return darNodo(raiz, key);
+	}
+	
+	/**
+	 * Método auxiliar para retornar el nodo
+	 * @param x Nodo con la llave
+	 * @param key Llave que está en el nodo
+	 * @return Nodo
+	 */
+	private Node darNodo(Node x, K key)
+	{
+		while (x != null) 
+		{
+			int cmp = key.compareTo(x.key);
+			if (cmp < 0)
+			{
+				x = x.left;
+			}
+			else if(cmp > 0) 
+			{
+				x = x.right;
+			}
+			else
+			{
+				return x;
+			}
+		}
+		return null;
+	}
 	/**
 	 * Retorna el valor V asociado a la llave key dada. Si la llave no se encuentra se retorna el valor null.
 	 * @param key Llave de la cual se obtendrá el valor.
@@ -248,6 +289,9 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 	 */
 	public int height() 
 	{
+		if(raiz==null)
+			return 0;
+		
 		return height(raiz);
 	}
 
@@ -287,7 +331,7 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 	{
 		if(x.key==key)
 		{
-			return 1;
+			return 0;
 		}
 		else
 		{
@@ -375,7 +419,11 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 	 */
 	public boolean check()
 	{
-		return isBST() && isSizeConsistent() && isRankConsistent() && is23() && isBalanced();
+		if(!isBST()) return false;
+		if(!is23()) return false;
+		if(!isBalanced()) return false;
+		
+		return true;
 	}
 	
 	/**
@@ -401,89 +449,6 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
         return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
     } 
 
-    /**
-     * Método que comprueba si el árbol tiene tamaño consistente.
-     * @return True si está balanceado. False en caso contrario.
-     */
-    private boolean isSizeConsistent() { return isSizeConsistent(raiz); }
-    
-    /**
-     * Método auxiliar que comprueba si el árbol tiene tamaño consistente.
-     * @param Nodo que ingresa por parámetro.
-     * @return True si está balanceado. False en caso contrario.
-     */
-    private boolean isSizeConsistent(Node x) {
-        if (x == null) return true;
-        if (x.N != size(x.left) + size(x.right) + 1) return false;
-        return isSizeConsistent(x.left) && isSizeConsistent(x.right);
-    } 
-
-    /**
-     * Método que comprueba si el árbol tiene rango consistente.
-     * @return True si está balanceado. False en caso contrario.
-     */
-    private boolean isRankConsistent() 
-    {
-        for (int i = 0; i < size(); i++)
-            if (i != rank(select(i))) return false;
-        while(keys().hasNext())
-        {
-        	K key=keys().next();
-            if (key.compareTo(select(rank(key))) != 0) return false;
-        }
-     
-        return true;
-    }
-    
-    /**
-     * Método que auxilia el método auxiliar del rango consistente.
-     * @param Rango que ingresa por parámetro.
-     * @return Llave del rango.
-     */
-    public K select(int rank) {
-        if (rank < 0 || rank >= size()) {
-            throw new IllegalArgumentException("Parámetro inválido: " + rank);
-        }
-        return select(raiz, rank);
-    }
-
-    /**
-     * Método que auxilia el método auxiliar que es auxiliar del rango consistente.
-     * @param Nodo que ingresa por parámetro.
-     * @param Rango del árbol.
-     * @return Llave del nodo y el rango.
-     */
-    private K select(Node x, int rank) {
-        if (x == null) return null;
-        int leftSize = size(x.left);
-        if      (leftSize > rank) return select(x.left,  rank);
-        else if (leftSize < rank) return select(x.right, rank - leftSize - 1); 
-        else                      return x.key;
-    }
-    
-    /**
-     * Número de llaves menores a la dada por parámetro.
-     * @param key Llave que será comparada.
-     * @return Número de llaves menores.
-     */
-    public int rank(K key) {
-        if (key == null) throw new IllegalArgumentException("La llave es nula");
-        return rank(key, raiz);
-    } 
-
-    /**
-     * Método auxiliar que retorna el número de llaves menores a la dada por parámetro.
-     * @param key Llave que será comparada.
-     * @param x Nodo de la llave.
-     * @return Número de llaves menores.
-     */
-    private int rank(K key, Node x) {
-        if (x == null) return 0; 
-        int cmp = key.compareTo(x.key); 
-        if      (cmp < 0) return rank(key, x.left); 
-        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right); 
-        else              return size(x.left); 
-    } 
 
     /**
      * Método que comprueba si el árbol es 2-3.
@@ -638,10 +603,10 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 	 * Clase interna del nodo que será utilizado por el árbol.
 	 * @author Sergio Julian Zona Moreno y Juan Andrés Ariza Gacharná.
 	 */
-	private class Node
+	public class Node implements Comparable<Node>
 	{
-		K key; 
-		V val; 
+		public K key; 
+		public V val; 
 		Node left, right; 
 		int N; //Número de nodos del subárbol.
 		boolean color; 
@@ -652,5 +617,38 @@ public class RedBlackBST<K extends Comparable<K>, V extends Comparable<V>> imple
 			this.N = N;
 			this.color = color;
 		}
+		@Override
+		public int compareTo(RedBlackBST<K, V>.Node o) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 	}
+	
+	public Iterator<Node> darHojas() 
+	{
+		ListaEncadenada<Node> lista = new ListaEncadenada<Node>();
+		llenarHojas(raiz,lista);
+		return lista.iterator();
+	}
+	
+	public void llenarHojas(Node x, ListaEncadenada<Node> lista)
+	{
+		if(x!=null)
+		{
+			if(x.left==null&&x.right==null)
+			{
+				lista.agregarFinal(x);
+			}
+			else
+			{
+				if(x.left!=null)
+					llenarHojas(x.left,lista);
+				if(x.right!=null)
+					llenarHojas(x.right,lista);
+			}
+		}
+	}
+
+
+	
 }
