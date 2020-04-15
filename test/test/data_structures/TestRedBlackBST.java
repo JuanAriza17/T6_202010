@@ -43,7 +43,7 @@ public class TestRedBlackBST
 	}
 
 	/**
-	 * Prueba del método constructor de la clase HashSeparateChaining.
+	 * Prueba del método constructor de la clase BlackRedBST.
 	 */
 	@Test
 	public void testConstructor()
@@ -58,6 +58,9 @@ public class TestRedBlackBST
 		assertEquals(500, rb.size());
 	}
 	
+	/**
+	 * Prueba del método size() de la clase BlackRedBST.
+	 */
 	@Test
 	public void testSize()
 	{
@@ -71,7 +74,9 @@ public class TestRedBlackBST
 		assertEquals(500, rb.size());
 	}
 	
-	
+	/**
+	 * Prueba del método isEmpty() de la clase BlackRedBST.
+	 */
 	@Test
 	public void testIsEmpty()
 	{
@@ -178,8 +183,9 @@ public class TestRedBlackBST
 		}
 	}
 	
-
-	
+	/**
+	 * Prueba del método height() de la clase BlackRedBST.
+	 */
 	@Test
 	public void testHeight()
 	{
@@ -197,6 +203,9 @@ public class TestRedBlackBST
 		assertEquals(8,rb.height());
 	}
 	
+	/**
+	 * Prueba del método min() de la clase BlackRedBST.
+	 */
 	@Test
 	public void testMin()
 	{
@@ -215,6 +224,9 @@ public class TestRedBlackBST
 		
 	}
 	
+	/**
+	 * Prueba del método max() de la clase BlackRedBST.
+	 */
 	@Test
 	public void testMax()
 	{
@@ -232,6 +244,9 @@ public class TestRedBlackBST
 		assertEquals(500, rb.max(),0);
 	}
 	
+	/**
+	 * Prueba del método check de la clase BlackRedBST.
+	 */
 	@Test
 	public void testCheck()
 	{
@@ -254,6 +269,9 @@ public class TestRedBlackBST
 		
 	}
 	
+	/**
+	 * Prueba del método keys de la clase BlackRedBST.
+	 */
 	@Test
 	public void testKeys()
 	{
@@ -270,6 +288,9 @@ public class TestRedBlackBST
 		assertEquals(rb.size(),i,0);
 	}
 	
+	/**
+	 * Prueba del método valuesInRange de la clase BlackRedBST.
+	 */
 	@Test
 	public void testValuesInRange()
 	{
@@ -288,6 +309,9 @@ public class TestRedBlackBST
 		assertEquals(230-40,i-1,0);
 	}
 	
+	/**
+	 * Prueba del método keysInRange de la clase BlackRedBST.
+	 */
 	@Test
 	public void testKeysInRange()
 	{
@@ -305,7 +329,4 @@ public class TestRedBlackBST
 		
 		assertEquals(230-40,i-1,0);
 	}
-	
-	
-
 }
