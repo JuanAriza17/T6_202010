@@ -3,6 +3,7 @@ package controller;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import model.data_structures.ArregloDinamico;
@@ -61,7 +62,7 @@ public class Controller {
 			{
 				int option = Integer.parseInt(lector.next());				
 				switch(option){
-				case 0:
+				case 1:
 					view.printMessage("--------- \nCargando lista de comparendos");
 					try
 					{
@@ -95,64 +96,69 @@ public class Controller {
 
 					break;
 					
-				case 1: 
+				case 2: 
 					
-					if(modelo.darLongitud()==0)
+					if(modelo.darArbol().isEmpty())
 					{
-						view.printMessage("Aún no ha inicializado las tablas de hash");
+						view.printMessage("Por favor inicialice los comparendos.\n");
 					}
 					else
 					{
-						view.printMessage("Ingrese una fecha (Año/Mes/Día): ");
-						fecha = lector.next();
-						view.printMessage("Ingrese un vehículo: ");
-						vehiculo = lector.next();
-						view.printMessage("Ingrese una infracción: ");
-						infraccion = lector.next();
-						
-						String comparendos = modelo.buscarComparendosDadaFechaLinear(fecha, vehiculo, infraccion);
-						
-						if(comparendos==null)
+						try
 						{
-							view.printMessage("No se encontraron comparendos con las características dadas");
+							view.printMessage("Por favor ingrese el ID del comparendo que desea buscar:\n");
+							int comparendoID=Integer.parseInt(lector.next());
+							Comparendo buscado=modelo.consultarComparendoID(comparendoID);
+							if(buscado==null)
+							{
+								view.printMessage("No se encontró un comparendo con el ID dado.\n");
+							}
+							else
+							{
+								view.printMessage(buscado.toString()+"\n");
+							}
 						}
-						else
+						catch(Exception e)
 						{
-							view.printMessage(comparendos);
+							view.printMessage("Por favor ingrese un número.\n");
 						}
 					}
 					
 					break;
 
-				case 2:
+				case 3:
 					
-					if(modelo.darLongitud()==0)
+					if(modelo.darArbol().isEmpty())
 					{
-						view.printMessage("Aún no ha inicializado las tablas de hash");
+						view.printMessage("Por favor inicialice los comparendos.\n");
 					}
 					else
 					{
-						view.printMessage("Ingrese una fecha (Año/Mes/Día): ");
-						fecha = lector.next();
-						view.printMessage("Ingrese un vehículo: ");
-						vehiculo = lector.next();
-						view.printMessage("Ingrese una infracción: ");
-						infraccion = lector.next();
-						
-						String c = modelo.buscarComparendosDadaFechaSeparate(fecha, vehiculo, infraccion);
-						
-						if(c==null)
+						try
 						{
-							view.printMessage("No se encontraron comparendos con las características dadas");
+							view.printMessage("Por favor ingrese el límite inferior (ID inferior):\n");
+							int inf=Integer.parseInt(lector.next());
+							view.printMessage("Por favor ingrese el límite superior (ID superior):\n");
+							int sup=Integer.parseInt(lector.next());
+							Iterator<Comparendo> buscado=modelo.comparendosIDRango(inf,sup);
+							if(!buscado.hasNext())
+							{
+								view.printMessage("Rango inválido.\n");
+							}
+							else
+							{
+								view.printIterator(buscado);
+							}
 						}
-						else
+						catch(Exception e)
 						{
-							view.printMessage(c);
+							view.printMessage("Por favor ingrese un número.\n");
 						}
 					}
+					
 					break;
 
-				case 3: 
+				case 4: 
 					if(modelo.darLongitud()==0)
 					{
 						view.printMessage("Aún no ha inicializado las tablas de hash");

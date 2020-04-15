@@ -20,7 +20,9 @@ import model.data_structures.HashLinearProbing;
 import model.data_structures.HashSeparateChaining;
 import model.data_structures.IHashTable;
 import model.data_structures.IListaEncadenada;
+import model.data_structures.IRedBlackBST;
 import model.data_structures.ListaEncadenada;
+import model.data_structures.RedBlackBST;
 
 
 /**
@@ -43,7 +45,11 @@ public class Modelo {
 	 * Separate Chaining de coomparendos
 	 */
 	private IHashTable<String, Comparendo> separateChaining;
-
+	
+	/**
+	 * Árbol RedBlackBST.
+	 */
+	private IRedBlackBST<Integer, Comparendo> redBlackBST;
 	/**
 	 * Arreglo con las muestras
 	 */
@@ -61,6 +67,7 @@ public class Modelo {
 		linearProbing = new HashLinearProbing<String, Comparendo>(5);
 		separateChaining = new HashSeparateChaining<String, Comparendo>(5);
 		listaComparendos = new ListaEncadenada<Comparendo>();
+		redBlackBST= new RedBlackBST<Integer, Comparendo>();
 	}
 
 	
@@ -378,6 +385,35 @@ public class Modelo {
 		return listaComparendos.darUltimo().darElemento();
 	}
 	
+	/**
+	 * Método que retorna el comparendo por el ID ingresado por parámetro. Se implemente el RedBlackBST.
+	 * @param ID OBJECT_ID del Comparendo buscado.
+	 * @return Comparendo buscado.
+	 */
+	public Comparendo consultarComparendoID(int ID)
+	{
+		return redBlackBST.get(ID);
+	}
+	
+	/**
+	 * Método que retorna un iterador de comparendos por el rango de ID dado. Se implementa el RedBlackBST.
+	 * @param inf Rango inferior de ID.
+	 * @param sup Rango superior de ID.
+	 * @return Comparendo buscado.
+	 */
+	public Iterator<Comparendo> comparendosIDRango(int inf, int sup)
+	{
+		return redBlackBST.valuesInRange(inf, sup);
+	}
+	
+	/**
+	 * Método que retorna el árbol.
+	 * @return Retorna el árbol rojo-negro.
+	 */
+	public IRedBlackBST<Integer, Comparendo> darArbol()
+	{
+		return redBlackBST;
+	}
 	
 	/**
 	 * Método que carga los comparendos
@@ -428,6 +464,7 @@ public class Modelo {
 			agregarFinal(comparendo);
 			agregarLinear(comparendo);
 			agregarSeparate(comparendo);
+			redBlackBST.put(id, comparendo);
 		 }
 	}
 }
