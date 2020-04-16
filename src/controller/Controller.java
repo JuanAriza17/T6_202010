@@ -69,8 +69,8 @@ public class Controller {
 						DecimalFormat df= new DecimalFormat("0.00");
 						
 						view.printMessage("Altura promedio de cada rama: "+df.format(modelo.darPromedioHojas())+"\n");
-						view.printMessage("MENOR: \n"+modelo.darMayorComparendo().toString());
-						view.printMessage("MAYOR: \n"+modelo.darMenorComparendo().toString()+"\n");
+						view.printMessage("MENOR: \n"+modelo.darMenorComparendo().toString());
+						view.printMessage("MAYOR: \n"+modelo.darMayorComparendo().toString()+"\n");
 						
 					}
 					catch(FileNotFoundException e)
