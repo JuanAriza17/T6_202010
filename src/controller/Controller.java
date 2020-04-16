@@ -63,7 +63,7 @@ public class Controller {
 					{
 						modelo.cargarComparendos(RUTA);
 						view.printMessage("Árbol de comparendos creado\n");
-						view.printMessage("Número de comparendos guardados: "+modelo.darTamano());
+						view.printMessage("Número de comparendos guardados (número de nodos del árbol): "+modelo.darTamano());
 						view.printMessage("Altura del árbol: "+modelo.darAlturaArbol());
 						
 						DecimalFormat df= new DecimalFormat("0.00");
